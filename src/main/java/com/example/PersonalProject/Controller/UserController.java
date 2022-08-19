@@ -19,7 +19,7 @@ public class UserController {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @PostMapping("/join")
+    @PostMapping("/api/join")
     public ResponseEntity<?> join(@RequestBody Map<String, String> getUser) {
 
         UserInfo userInfo = new UserInfo();
