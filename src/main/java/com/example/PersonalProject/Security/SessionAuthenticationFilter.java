@@ -56,10 +56,18 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         System.out.println("successfulAuthentication 실행 - 인증이 완료 됨 시도중");
-        Cookie cookie = sessionManager.createSession("random",response);
-        System.out.println("Cookie 값 확인 : " + cookie);
+        PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
+
+        System.out.println("세션 생성 필터 principalDetails의 유저 아이디 값 : "+principalDetails.getUserInfo().getId());
+        Cookie cookie = sessionManager.createSession(String.valueOf(principalDetails.getUserInfo().getId()),response);
+        System.out.println("Cookie 값 확인 : " + cookie.getValue());
+        response.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().write("login response success");
         response.addCookie(cookie);
+
     }
 }
