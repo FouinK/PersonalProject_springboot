@@ -1,13 +1,15 @@
-package com.example.PersonalProject.Security;
+package com.example.PersonalProject.Login;
 
+import com.example.PersonalProject.Filter.SessionAuthenticationFilter;
+import com.example.PersonalProject.Filter.SessionAuthorizationFilter;
+import com.example.PersonalProject.User.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
 @Configuration
@@ -17,6 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SessionManager sessionManager;
     private final CorsFilter corsFilter;
+    private final UserRepository userRepository;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -31,5 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/user/**")
                 .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                 .anyRequest().permitAll();
+        http
+                .addFilterBefore(
+                        new SessionAuthorizationFilter(authenticationManager(), sessionManager, userRepository),
+                        UsernamePasswordAuthenticationFilter.class
+                );
     }
 }

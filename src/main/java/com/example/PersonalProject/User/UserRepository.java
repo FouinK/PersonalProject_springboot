@@ -1,10 +1,12 @@
-package com.example.PersonalProject.Repository;
+package com.example.PersonalProject.User;
 
-import com.example.PersonalProject.Entity.UserInfo;
 import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<UserInfo,Long> {
 
     UserInfo findByUsername(String username);
 
+    Optional<UserInfo> findById(Long userId);
 }

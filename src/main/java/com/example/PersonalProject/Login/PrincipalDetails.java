@@ -1,7 +1,7 @@
-package com.example.PersonalProject.DTO;
+package com.example.PersonalProject.Login;
 
-import com.example.PersonalProject.Entity.Role;
-import com.example.PersonalProject.Entity.UserInfo;
+import com.example.PersonalProject.User.Role;
+import com.example.PersonalProject.User.UserInfo;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

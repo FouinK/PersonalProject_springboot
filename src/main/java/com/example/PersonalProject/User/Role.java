@@ -1,4 +1,4 @@
-package com.example.PersonalProject.Entity;
+package com.example.PersonalProject.User;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

@@ -1,8 +1,8 @@
-package com.example.PersonalProject.Security;
+package com.example.PersonalProject.Filter;
 
-import com.example.PersonalProject.DTO.PrincipalDetails;
-import com.example.PersonalProject.Entity.UserInfo;
-import com.example.PersonalProject.Security.SessionManager;
+import com.example.PersonalProject.Login.PrincipalDetails;
+import com.example.PersonalProject.Login.SessionManager;
+import com.example.PersonalProject.User.UserInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,11 +12,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @RequiredArgsConstructor
@@ -61,7 +59,7 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
         System.out.println("세션 생성 필터 principalDetails의 유저 아이디 값 : "+principalDetails.getUserInfo().getId());
-        Cookie cookie = sessionManager.createSession(String.valueOf(principalDetails.getUserInfo().getId()),response);
+        Cookie cookie = sessionManager.createSession(String.valueOf(principalDetails.getUserInfo().getId()));
         System.out.println("Cookie 값 확인 : " + cookie.getValue());
         response.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
         response.setContentType("application/json");

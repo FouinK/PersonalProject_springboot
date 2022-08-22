@@ -1,8 +1,7 @@
-package com.example.PersonalProject.Security;
+package com.example.PersonalProject.Login;
 
-import com.example.PersonalProject.DTO.PrincipalDetails;
-import com.example.PersonalProject.Entity.UserInfo;
-import com.example.PersonalProject.Repository.UserRepository;
+import com.example.PersonalProject.User.UserInfo;
+import com.example.PersonalProject.User.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
