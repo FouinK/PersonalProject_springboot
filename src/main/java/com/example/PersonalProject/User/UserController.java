@@ -13,24 +13,16 @@ import java.util.Map;
 @RestController
 @RequiredArgsConstructor
 public class UserController {
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder passwordEncoder;
+    private final UserService userService;
 
     /**
      * 회원가입 매핑 함수
-     * @param getUser
+     * @param getUser 클라이언트로부터 입력 받은 회원가입 양식
      * @return
      */
     @PostMapping("/api/join")
     public ResponseEntity<?> join(@RequestBody Map<String, String> getUser) {
-
-        UserInfo userInfo = new UserInfo();
-
-        userInfo.setUsername(getUser.get("username"));
-        userInfo.setPassword(passwordEncoder.encode(getUser.get("password")));
-        userInfo.setRole(Role.USER);
-        userRepository.save(userInfo);
-
+        userService.join(getUser);
         return ResponseEntity.ok("회원가입 완료");
     }
 
