@@ -45,6 +45,14 @@ public class UserController {
         return ResponseEntity.ok(myPageResponseDTO);
     }
 
+    /**
+     * 쿠키 요청 응답 테스트
+     * @param httpServletRequest
+     * @param mySessionId
+     * @return
+     * @throws UnsupportedEncodingException
+     */
+
     @GetMapping("/api/select_cookie")
     public ResponseEntity<?> select_cookie(
             HttpServletRequest httpServletRequest,
