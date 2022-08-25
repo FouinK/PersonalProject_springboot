@@ -1,9 +1,11 @@
 package com.example.PersonalProject.User;
 
+import com.example.PersonalProject.DTO.MyPageResponseDTO;
+import com.example.PersonalProject.Login.PrincipalDetails;
 import com.example.PersonalProject.Login.SessionManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +19,7 @@ public class UserController {
 
     /**
      * 회원가입 매핑 함수
+     *
      * @param getUser 클라이언트로부터 입력 받은 회원가입 양식
      * @return
      */
@@ -24,6 +27,22 @@ public class UserController {
     public ResponseEntity<?> join(@RequestBody Map<String, String> getUser) {
         userService.join(getUser);
         return ResponseEntity.ok("회원가입 완료");
+    }
+
+    /**
+     * 회원 정보를 조회할 수 있는 매핑 함수
+     * @param principalDetails
+     * @return
+     */
+    @PostMapping("/api/mypage")
+    public ResponseEntity<?> mypage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        MyPageResponseDTO myPageResponseDTO = MyPageResponseDTO.builder()
+                .username(principalDetails.getUserInfo().getUsername())
+                .role(String.valueOf(principalDetails.getUserInfo().getRole()))
+                .build();
+
+        return ResponseEntity.ok(myPageResponseDTO);
     }
 
     @GetMapping("/api/select_cookie")
@@ -35,7 +54,7 @@ public class UserController {
 
 
         String cookie = (String) sessionManager.getSession(httpServletRequest);
-        System.out.println("세션 매니저 객체 호출 후 getSession 메소드 활용 값 : "+cookie);
+        System.out.println("세션 매니저 객체 호출 후 getSession 메소드 활용 값 : " + cookie);
         return ResponseEntity.ok(mySessionId);
     }
 }
