@@ -20,15 +20,19 @@ public class UserInfo {
     private String password;
 
     @Column(nullable = false)
+    private String nickname;
+
+    @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
     @Builder
-    public UserInfo(Long id, String username, String password, Role role) {
+    public UserInfo(Long id, String username, String password, Role role, String nickname) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.nickname = nickname;
     }
 
     public UserInfo() {

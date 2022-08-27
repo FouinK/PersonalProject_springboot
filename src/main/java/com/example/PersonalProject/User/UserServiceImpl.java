@@ -22,6 +22,7 @@ public class UserServiceImpl implements UserService {
         UserInfo userInfo = new UserInfo();
         userInfo.setUsername(getUser.get("username"));
         userInfo.setPassword(passwordEncoder.encode(getUser.get("password")));
+        userInfo.setNickname(getUser.get("nickname"));
         userInfo.setRole(Role.USER);
 
         userRepository.save(userInfo);

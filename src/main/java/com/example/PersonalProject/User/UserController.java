@@ -40,6 +40,7 @@ public class UserController {
         MyPageResponseDTO myPageResponseDTO = MyPageResponseDTO.builder()
                 .username(principalDetails.getUserInfo().getUsername())
                 .role(String.valueOf(principalDetails.getUserInfo().getRole()))
+                .nickname(String.valueOf(principalDetails.getUserInfo().getNickname()))
                 .build();
 
         return ResponseEntity.ok(myPageResponseDTO);

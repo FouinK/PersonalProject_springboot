@@ -8,10 +8,12 @@ import lombok.RequiredArgsConstructor;
 public class MyPageResponseDTO {
     private String username;
     private String role;
+    private String nickname;
 
     @Builder
-    public MyPageResponseDTO(String username, String role) {
+    public MyPageResponseDTO(String username, String role, String nickname) {
         this.username = username;
         this.role = role;
+        this.nickname = nickname;
     }
 }
