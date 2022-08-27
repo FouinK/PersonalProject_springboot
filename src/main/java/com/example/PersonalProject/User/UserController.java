@@ -34,7 +34,7 @@ public class UserController {
      * @param principalDetails
      * @return
      */
-    @PostMapping("/api/mypage")
+    @GetMapping("/api/mypage")
     public ResponseEntity<?> mypage(@AuthenticationPrincipal PrincipalDetails principalDetails) {
 
         MyPageResponseDTO myPageResponseDTO = MyPageResponseDTO.builder()
@@ -52,11 +52,10 @@ public class UserController {
      * @return
      * @throws UnsupportedEncodingException
      */
-
     @GetMapping("/api/select_cookie")
     public ResponseEntity<?> select_cookie(
             HttpServletRequest httpServletRequest,
-            @CookieValue(name = "mySessionId", required = false) String mySessionId) throws UnsupportedEncodingException {
+            @CookieValue(name = "mySessionId", required = false) String mySessionId) {
         System.out.println("controller 쿠키 값 확인 : " + mySessionId);
         SessionManager sessionManager = new SessionManager();
 
@@ -64,5 +63,16 @@ public class UserController {
         String cookie = (String) sessionManager.getSession(httpServletRequest);
         System.out.println("세션 매니저 객체 호출 후 getSession 메소드 활용 값 : " + cookie);
         return ResponseEntity.ok(mySessionId);
+    }
+
+    /**
+     * 세션 만료 테스트 매핑 함수
+     * @param principalDetails
+     * @return
+     */
+    @GetMapping("/api/where")
+    public ResponseEntity<?> where(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println(principalDetails.toString());
+        return ResponseEntity.ok("작동 되면 안되는 구문");
     }
 }

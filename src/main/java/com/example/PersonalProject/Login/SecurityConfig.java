@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final SessionManager sessionManager;
     private final CorsFilter corsFilter;
     private final UserRepository userRepository;
-//    private final LogoutHandler logoutHandler;
+    private final LogoutHandler logoutHandler;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -47,8 +47,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 );
         http.logout()
                 .logoutUrl("/api/logout")
-                .logoutSuccessUrl("/login")
                 .deleteCookies("mySessionId")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+                .logoutSuccessHandler(logoutHandler);
     }
 }

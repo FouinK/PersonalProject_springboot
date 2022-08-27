@@ -32,13 +32,4 @@ public class MainController {
         }
         return "index";
     }
-
-    //@Authentication 잘 사라졌는지 확인 필요
-    @GetMapping("/login")
-    public ResponseEntity<?> login(){
-        Map<String, Object> map = new HashMap<>();
-        System.out.println("로그아웃 성공");
-        map.put("logout",true);
-        return ResponseEntity.ok(map);
-    }
 }
