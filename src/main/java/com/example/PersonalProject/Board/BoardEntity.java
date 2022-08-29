@@ -2,10 +2,12 @@ package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.User.UserInfoEntity;
 import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@RequiredArgsConstructor
 public class BoardEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,7 +16,7 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private UserInfoEntity userInfoEntity;
 
     @Column(nullable = false)
@@ -23,4 +25,12 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private int viewCnt;
 
+    @Builder
+    public BoardEntity(Long id, String title, UserInfoEntity userInfoEntity, String content, int viewCnt) {
+        this.id = id;
+        this.title = title;
+        this.userInfoEntity = userInfoEntity;
+        this.content = content;
+        this.viewCnt = viewCnt;
+    }
 }
