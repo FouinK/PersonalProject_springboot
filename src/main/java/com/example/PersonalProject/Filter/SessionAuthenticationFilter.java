@@ -2,7 +2,7 @@ package com.example.PersonalProject.Filter;
 
 import com.example.PersonalProject.Login.PrincipalDetails;
 import com.example.PersonalProject.Login.SessionManager;
-import com.example.PersonalProject.User.UserInfo;
+import com.example.PersonalProject.User.UserInfoEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,9 +26,9 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         System.out.println("SessionAuthenticationFilter 실행 - 로그인 시도중");
         ObjectMapper objectMapper = new ObjectMapper();
-        UserInfo user = null;
+        UserInfoEntity user = null;
         try {
-            user = objectMapper.readValue(request.getInputStream(), UserInfo.class);
+            user = objectMapper.readValue(request.getInputStream(), UserInfoEntity.class);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<UserInfo,Long> {
+public interface UserRepository extends JpaRepository<UserInfoEntity,Long> {
 
-    UserInfo findByUsername(String username);
+    UserInfoEntity findByUsername(String username);
 
-    Optional<UserInfo> findById(Long userId);
+    Optional<UserInfoEntity> findById(Long userId);
 }

@@ -1,7 +1,7 @@
 package com.example.PersonalProject.Login;
 
 import com.example.PersonalProject.User.Role;
-import com.example.PersonalProject.User.UserInfo;
+import com.example.PersonalProject.User.UserInfoEntity;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,10 +16,10 @@ import java.util.Map;
 @Data
 public class PrincipalDetails implements UserDetails, OAuth2User {
 
-    private UserInfo userInfo;
+    private UserInfoEntity userInfo;
 
     @Builder
-    public PrincipalDetails(UserInfo userInfo) {
+    public PrincipalDetails(UserInfoEntity userInfo) {
         this.userInfo = userInfo;
     }
 

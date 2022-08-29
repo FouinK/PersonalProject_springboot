@@ -2,7 +2,7 @@ package com.example.PersonalProject.Filter;
 
 import com.example.PersonalProject.Login.PrincipalDetails;
 import com.example.PersonalProject.Login.SessionManager;
-import com.example.PersonalProject.User.UserInfo;
+import com.example.PersonalProject.User.UserInfoEntity;
 import com.example.PersonalProject.User.UserRepository;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -49,7 +49,7 @@ public class SessionAuthorizationFilter extends BasicAuthenticationFilter {
         }
 
         if (userID != null) {
-            Optional<UserInfo> userInfo = userRepository.findById(Long.valueOf(userID));
+            Optional<UserInfoEntity> userInfo = userRepository.findById(Long.valueOf(userID));
 
             if (userInfo.isPresent()) {
                 PrincipalDetails principalDetails = new PrincipalDetails(userInfo.get());

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class UserInfo {
+public class UserInfoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class UserInfo {
     private Role role;
 
     @Builder
-    public UserInfo(Long id, String username, String password, Role role, String nickname) {
+    public UserInfoEntity(Long id, String username, String password, Role role, String nickname) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -35,7 +35,7 @@ public class UserInfo {
         this.nickname = nickname;
     }
 
-    public UserInfo() {
+    public UserInfoEntity() {
 
     }
 }

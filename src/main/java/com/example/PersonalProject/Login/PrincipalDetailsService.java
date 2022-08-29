@@ -1,6 +1,6 @@
 package com.example.PersonalProject.Login;
 
-import com.example.PersonalProject.User.UserInfo;
+import com.example.PersonalProject.User.UserInfoEntity;
 import com.example.PersonalProject.User.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,7 @@ public class PrincipalDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserInfo user = userRepository.findByUsername(username);
+        UserInfoEntity user = userRepository.findByUsername(username);
         System.out.println("user : "+user);
         PrincipalDetails principalDetails = new PrincipalDetails(user);
         System.out.println("principalDetails : "+principalDetails);

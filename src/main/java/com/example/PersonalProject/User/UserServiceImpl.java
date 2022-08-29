@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void join(Map<String, String> getUser) {
-        UserInfo userInfo = new UserInfo();
+        UserInfoEntity userInfo = new UserInfoEntity();
         userInfo.setUsername(getUser.get("username"));
         userInfo.setPassword(passwordEncoder.encode(getUser.get("password")));
         userInfo.setNickname(getUser.get("nickname"));
