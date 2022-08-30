@@ -15,7 +15,6 @@ import java.util.List;
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
-    private final UserRepository userRepository;
 
     /**
      * 게시판 작성 함수
@@ -35,6 +34,10 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(boardEntity);
     }
 
+    /**
+     * 전체 게시판 응답 함수
+     * @return
+     */
     @Override
     public List<AllBoradResponseDTO> allBoard() {
 
@@ -44,10 +47,13 @@ public class BoardServiceImpl implements BoardService{
         for (BoardEntity entity : boardEntity) {
 
             AllBoradResponseDTO individualAllBoradResponseDTO = AllBoradResponseDTO.builder()
+                    .board_id(entity.getId())
                     .title(entity.getTitle())
                     .viewCnt(entity.getViewCnt())
                     .writer(entity.getUserInfoEntity().getNickname())
+                    .createdDate(entity.getCreatedDate())
                     .build();
+
             allBoradResponseDTO.add(individualAllBoradResponseDTO);
         }
 

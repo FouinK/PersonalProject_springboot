@@ -19,6 +19,12 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    /**
+     * 게시판 작성 함수
+     * @param principalDetails
+     * @param createBoardRequestDTO
+     * @return
+     */
     @PostMapping("/api/create_board")
     public ResponseEntity<?> createBoard(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
@@ -27,11 +33,16 @@ public class BoardController {
         return ResponseEntity.ok("게시판 작성 완료");
     }
 
+    /**
+     * 전체 게시판 응답 매핑 함수
+     * @return
+     */
     @GetMapping("/api/board")
     public ResponseEntity<?> getAllBoard() {
 
         List<AllBoradResponseDTO> allBoradResponseDTOList = boardService.allBoard();
 
         return ResponseEntity.ok(allBoradResponseDTOList);
+
     }
 }
