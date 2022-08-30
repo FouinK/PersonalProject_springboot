@@ -40,10 +40,10 @@ public class SessionAuthorizationFilter extends BasicAuthenticationFilter {
                 if (cookie.getName().equals("mySessionId")) {
 
                     userID = (String) sessionManager.getSession(request);
-                    System.out.println("필터로 확인 한 유저인포 값 : " + userID);
+//                    System.out.println("필터로 확인 한 유저인포 값 : " + userID);
                 } else {
 
-                    System.out.println("mySessionId 없음");
+//                    System.out.println("mySessionId 없음");
                 }
             }
         }

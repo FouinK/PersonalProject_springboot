@@ -19,6 +19,7 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void createBoard(CreateBoardRequestDTO createBoardRequestDTO, PrincipalDetails principalDetails) {
 
+
         BoardEntity boardEntity = BoardEntity.builder()
                 .title(createBoardRequestDTO.getTitle())
                 .content(createBoardRequestDTO.getContent())

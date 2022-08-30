@@ -1,10 +1,13 @@
 package com.example.PersonalProject.User;
 
+import com.example.PersonalProject.Board.BoardEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -27,6 +30,9 @@ public class UserInfoEntity {
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Role role;
+//
+//    @OneToMany(mappedBy = "userInfoEntity",fetch = FetchType.EAGER)
+//    private Set<BoardEntity> productUploadFiles = new LinkedHashSet<>();
 
     @Builder
     public UserInfoEntity(Long id, String username, String password, Role role, String nickname) {

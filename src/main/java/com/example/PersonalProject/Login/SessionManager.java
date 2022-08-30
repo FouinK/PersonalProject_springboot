@@ -25,7 +25,6 @@ public class SessionManager {
     public Cookie createSession(Object value){
         // 세션 id를 생성하고, 값을 세션에 저장
         String sessionId = UUID.randomUUID().toString();
-        System.out.println("createSession 의 sessionId : " + sessionId);
         sessionStore.put(sessionId, value);
 
         // 쿠키 생성

@@ -39,9 +39,6 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
         try {
             authenticationManager.authenticate(authenticationToken);
             Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            System.out.println("authentication : "+authentication);
-            PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-            System.out.println("principalDetails getUsername() : "+principalDetails.getUserInfo().getUsername());
             return authentication;
         } catch (NullPointerException e) {
             try {
@@ -58,9 +55,7 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
         System.out.println("successfulAuthentication 실행 - 인증이 완료 됨 시도중");
         PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 
-        System.out.println("세션 생성 필터 principalDetails의 유저 아이디 값 : "+principalDetails.getUserInfo().getId());
         Cookie cookie = sessionManager.createSession(String.valueOf(principalDetails.getUserInfo().getId()));
-        System.out.println("Cookie 값 확인 : " + cookie.getValue());
         response.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
