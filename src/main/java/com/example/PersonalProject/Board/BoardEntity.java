@@ -2,12 +2,14 @@ package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.User.UserInfoEntity;
 import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @RequiredArgsConstructor
+@Data
 public class BoardEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
