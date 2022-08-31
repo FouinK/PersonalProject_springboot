@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h2 th:text="${board.title}"></h2>
+    <strong>작성자 : </strong>
+    <span th:text="${board.getWriter()}"></span>
+    <hr/>
+    <strong>생성 날짜 : </strong>
+    <span th:text="${board.getCreatedDate()}"></span>
+    <hr/>
+    <strong>조회 수 : </strong>
+    <span th:text="${board.getViewCnt()}"></span>
+    <hr/>
+    <strong>내용 : </strong>
+    <span th:text="${board.getContent()}"></span>
+</body>
+</html>

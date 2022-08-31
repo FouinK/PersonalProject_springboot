@@ -16,6 +16,7 @@
         <th>글 번호</th>
         <th>글 제목</th>
         <th>글쓴이</th>
+        <th>조회수</th>
         <th>생성일자</th>
     </tr>
     <tr th:each="board: ${boardList}">
@@ -35,7 +36,6 @@
 
 <nav style="text-align: center;">
     <ul class="pagination">
-        <th>조회수</th>
         <li class="disabled">
             <a href="#" aria-label="First">
                 <span aria-hidden="true">First</span>
