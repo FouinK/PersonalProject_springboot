@@ -6,19 +6,17 @@ import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
 public class BoardServiceImpl implements BoardService{
 
     private final BoardRepository boardRepository;
+    private final CommentRepository commentRepository;
 
     /**
      * 게시판 작성 함수
@@ -37,7 +35,6 @@ public class BoardServiceImpl implements BoardService{
 
         boardRepository.save(boardEntity);
     }
-
 
     /**
      * 전체 게시판 응답 함수
@@ -62,6 +59,12 @@ public class BoardServiceImpl implements BoardService{
         return allBoradResponseDTO;
     }
 
+
+    /**
+     * 게시판 상세내용 응답함수
+     * @param team_id
+     * @return
+     */
     @Override
     public OneBoardResponseDTO getOneBoard(Long team_id) {
 
@@ -77,5 +80,19 @@ public class BoardServiceImpl implements BoardService{
                 .build();
 
         return oneBoardResponseDTO;
+    }
+
+    @Override
+    public void createCooment(Map<String, Object> map, PrincipalDetails principalDetails) {
+
+        BoardEntity boardEntity = boardRepository.getOne(Long.valueOf(String.valueOf(map.get("team_id"))));
+
+        CommentEntity commentEntity = CommentEntity.builder()
+                .writer(principalDetails.getUserInfo().getNickname())
+                .comment(String.valueOf(map.get("comment")))
+                .boardEntity(boardEntity)
+                .build();
+
+        commentRepository.save(commentEntity);
     }
 }
