@@ -3,8 +3,10 @@ package com.example.PersonalProject.Board;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
-import com.example.PersonalProject.User.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -34,29 +36,26 @@ public class BoardServiceImpl implements BoardService{
         boardRepository.save(boardEntity);
     }
 
+
     /**
      * 전체 게시판 응답 함수
+     * @param pageable
      * @return
      */
     @Override
-    public List<AllBoradResponseDTO> allBoard() {
+    public Page<AllBoradResponseDTO> allBoard(Pageable pageable) {
 
-        List<BoardEntity> boardEntity = boardRepository.findAll();
-        List<AllBoradResponseDTO> allBoradResponseDTO = new ArrayList<>();
+        Page<BoardEntity> boardEntity = boardRepository.findAll(pageable);
 
-        for (BoardEntity entity : boardEntity) {
-
-            AllBoradResponseDTO individualAllBoradResponseDTO = AllBoradResponseDTO.builder()
-                    .board_id(entity.getId())
-                    .title(entity.getTitle())
-                    .viewCnt(entity.getViewCnt())
-                    .writer(entity.getUserInfoEntity().getNickname())
-                    .createdDate(entity.getCreatedDate())
-                    .build();
-
-            allBoradResponseDTO.add(individualAllBoradResponseDTO);
-        }
-
+        Page<AllBoradResponseDTO> allBoradResponseDTO = boardEntity.map(
+                board -> AllBoradResponseDTO.builder()
+                        .board_id(board.getId())
+                        .title(board.getTitle())
+                        .viewCnt(board.getViewCnt())
+                        .writer(board.getUserInfoEntity().getNickname())
+                        .createdDate(board.getCreatedDate())
+                        .build()
+        );
         return allBoradResponseDTO;
     }
 }

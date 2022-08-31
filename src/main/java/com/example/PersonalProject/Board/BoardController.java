@@ -4,6 +4,11 @@ import com.example.PersonalProject.DTO.AllBoradResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -34,15 +39,31 @@ public class BoardController {
     }
 
     /**
-     * 전체 게시판 응답 매핑 함수
+     * 전체 게시판 응답 함수 (조회순 정렬)
+     * @param pageable
      * @return
      */
     @GetMapping("/api/board")
-    public ResponseEntity<?> getAllBoard() {
+    public ResponseEntity<?> getAllBoard(
+            @PageableDefault(size = 10,sort = "viewCnt",direction = Sort.Direction.DESC) Pageable pageable) {
 
-        List<AllBoradResponseDTO> allBoradResponseDTOList = boardService.allBoard();
+        Page<AllBoradResponseDTO> allBoradResponseDTOList = boardService.allBoard(pageable);
 
         return ResponseEntity.ok(allBoradResponseDTOList);
+    }
 
+    /**
+     * 전체 게시판 응답 함수 (최신순 정렬)
+     * @param pageable
+     * @return
+     */
+    @GetMapping("/api/board_created_date_range")
+    public ResponseEntity<?> boardRangeViewCnt(
+            @PageableDefault(size = 10,sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
+
+        Page<AllBoradResponseDTO> allBoradResponseDTOList = boardService.allBoard(pageable);
+
+
+        return ResponseEntity.ok(allBoradResponseDTOList);
     }
 }
