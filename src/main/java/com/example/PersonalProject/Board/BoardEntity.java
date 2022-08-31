@@ -18,7 +18,7 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private UserInfoEntity userInfoEntity;
 

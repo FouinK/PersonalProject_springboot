@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시판</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body class="container">
+
+<div class="jumbotron">
+    <h2>스프링 부트 게시판</h2>
+</div>
+
+<table class="table">
+    <tr>
+        <th>글 번호</th>
+        <th>글 제목</th>
+        <th>글쓴이</th>
+        <th>생성일자</th>
+    </tr>
+    <tr th:each="board: ${boardList}">
+            <td>
+                <form action="/thmyleaf/get_board" method="get">
+                    <input type="hidden" name="team_id" th:value="${board.board_id}"/>
+                    <input type="submit" th:value="${board.board_id}"/>
+                </form>
+            </td>
+            <td th:text="${board.title}"></td>
+            <td th:text="${board.writer}"></td>
+            <td th:text="${board.viewCnt}"></td>
+            <td th:text="${board.createdDate}"></td>
+        </form>
+    </tr>
+</table>
+
+<nav style="text-align: center;">
+    <ul class="pagination">
+        <th>조회수</th>
+        <li class="disabled">
+            <a href="#" aria-label="First">
+                <span aria-hidden="true">First</span>
+            </a>
+        </li>
+        <li class="disabled">
+            <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&lt;</span>
+            </a>
+        </li>
+        <li class="active"><a href="#">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li><a href="#">4</a></li>
+        <li><a href="#">5</a></li>
+        <li>
+            <a href="#" aria-label="Next">
+                <span aria-hidden="true">&gt;</span>
+            </a>
+        </li>
+        <li>
+            <a href="#" aria-label="Last">
+                <span aria-hidden="true">Last</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+</body>
+</html>

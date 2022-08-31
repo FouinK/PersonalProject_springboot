@@ -2,6 +2,7 @@ package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
+import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -56,6 +58,24 @@ public class BoardServiceImpl implements BoardService{
                         .createdDate(board.getCreatedDate())
                         .build()
         );
+
         return allBoradResponseDTO;
+    }
+
+    @Override
+    public OneBoardResponseDTO getOneBoard(Long team_id) {
+
+        Optional<BoardEntity> boardEntity = boardRepository.findById(team_id);
+
+        OneBoardResponseDTO oneBoardResponseDTO = OneBoardResponseDTO.builder()
+                .board_id(boardEntity.get().getId())
+                .title(boardEntity.get().getTitle())
+                .content(boardEntity.get().getContent())
+                .writer(boardEntity.get().getUserInfoEntity().getNickname())
+                .createdDate(boardEntity.get().getCreatedDate())
+                .viewCnt(boardEntity.get().getViewCnt())
+                .build();
+
+        return oneBoardResponseDTO;
     }
 }

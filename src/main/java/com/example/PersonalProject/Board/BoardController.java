@@ -2,6 +2,7 @@ package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
+import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
@@ -12,9 +13,11 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -39,7 +42,7 @@ public class BoardController {
     }
 
     /**
-     * 전체 게시판 응답 함수 (조회순 정렬)
+     * 전체 게시판 응답 매핑 함수 (조회순 정렬)
      * @param pageable
      * @return
      */
@@ -53,7 +56,7 @@ public class BoardController {
     }
 
     /**
-     * 전체 게시판 응답 함수 (최신순 정렬)
+     * 전체 게시판 응답 매핑 함수 (최신순 정렬)
      * @param pageable
      * @return
      */
@@ -65,5 +68,19 @@ public class BoardController {
 
 
         return ResponseEntity.ok(allBoradResponseDTOList);
+    }
+
+    /**
+     * 게시글 상세내용 응답 매핑 함수
+     * @param team_id
+     * @return
+     */
+    @GetMapping("/api/get_board")
+    public ResponseEntity<?> getBoard(
+            @RequestParam("team_id") Long team_id) {
+
+        OneBoardResponseDTO oneBoard = boardService.getOneBoard(team_id);
+
+        return ResponseEntity.ok(oneBoard);
     }
 }
