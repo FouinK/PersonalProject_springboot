@@ -83,7 +83,7 @@ public class BoardController {
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             @RequestBody Map<String, Object> map) {
 
-        boardService.createCooment(map, principalDetails);
+        boardService.createComment(map, principalDetails);
 
         return ResponseEntity.ok("코멘트 작성 완료");
     }

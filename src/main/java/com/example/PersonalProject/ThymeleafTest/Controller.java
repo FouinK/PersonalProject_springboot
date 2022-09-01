@@ -1,17 +1,21 @@
 package com.example.PersonalProject.ThymeleafTest;
 
-import com.example.PersonalProject.Board.BoardEntity;
 import com.example.PersonalProject.Board.BoardService;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
+import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @org.springframework.stereotype.Controller
 @RequiredArgsConstructor
@@ -25,7 +29,7 @@ public class Controller {
      * @param pageable
      * @return
      */
-    @GetMapping("/thmyleaf/board")
+    @GetMapping("/thymeleaf/board")
     public String getAllBoard(
             Model model,
             @PageableDefault(size = 10,sort = "viewCnt",direction = Sort.Direction.DESC) Pageable pageable) {
@@ -42,7 +46,7 @@ public class Controller {
      * @param team_id
      * @return
      */
-    @GetMapping("/thmyleaf/get_board")
+    @GetMapping("/thymeleaf/get_board")
     public String getBoard(
             Model model,
             @RequestParam("team_id") Long team_id) {
@@ -52,5 +56,16 @@ public class Controller {
         model.addAttribute("board", oneBoard);
 
         return "boardDetail";
+    }
+
+    @GetMapping("/thymeleaf/create/comment")
+    public String createComment(
+            String comment
+            /*@AuthenticationPrincipal PrincipalDetails principalDetails*/) {
+        System.out.println("컨트롤러 코멘트 값"+comment);
+        Map<String, Object> map = new HashMap<>();
+        map.put("comment", comment);
+//        boardService.createComment(map, principalDetails);
+        return "redirect:/";
     }
 }

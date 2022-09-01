@@ -83,7 +83,7 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public void createCooment(Map<String, Object> map, PrincipalDetails principalDetails) {
+    public void createComment(Map<String, Object> map, PrincipalDetails principalDetails) {
 
         BoardEntity boardEntity = boardRepository.getOne(Long.valueOf(String.valueOf(map.get("team_id"))));
 
@@ -95,4 +95,6 @@ public class BoardServiceImpl implements BoardService{
 
         commentRepository.save(commentEntity);
     }
+
+
 }

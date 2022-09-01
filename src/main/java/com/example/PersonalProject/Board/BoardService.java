@@ -16,5 +16,5 @@ public interface BoardService {
 
     OneBoardResponseDTO getOneBoard(Long team_id);
 
-    void createCooment(Map<String, Object> map, PrincipalDetails principalDetails);
+    void createComment(Map<String, Object> map, PrincipalDetails principalDetails);
 }
