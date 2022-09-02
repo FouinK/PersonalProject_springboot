@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script>
+
+    const userInfo = {
+      username: null,
+      password: null
+    }
+    function login() {
+      userInfo.username = document.getElementById('username').value;
+      userInfo.password = document.getElementById('password').value;
+
+        console.log(userInfo.username);
+        console.log(userInfo.password);
+
+        $.ajax({
+            url: "/login",
+            type: "POST",
+            dataType:JSON,
+            data: JSON.stringify(userInfo),
+        }).done(function (res) {
+            console.log(res);
+        });
+    }
+
+  </script>
+
+  <strong>아아디 : </strong>
+  <span><input id="username"></span>
+  <br/>
+  <strong>비밀번호 : </strong>
+  <span><input id="password"></span>
+  <P><input type="button" onclick="login()" value="로그인"></P>
+
+</body>
+</html>

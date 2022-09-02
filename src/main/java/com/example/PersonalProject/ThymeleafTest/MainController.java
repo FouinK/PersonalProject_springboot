@@ -1,4 +1,4 @@
-package com.example.PersonalProject.Controller;
+package com.example.PersonalProject.ThymeleafTest;
 
 import com.example.PersonalProject.Login.PrincipalDetails;
 import org.springframework.http.ResponseEntity;
