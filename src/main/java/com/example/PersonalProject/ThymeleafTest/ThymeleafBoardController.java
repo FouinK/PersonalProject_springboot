@@ -56,6 +56,11 @@ public class ThymeleafBoardController {
         return "boardDetail";
     }
 
+    /**
+     * 타임리프 코멘트 생성 매핑 함수
+     * @param comment
+     * @return
+     */
     @GetMapping("/thymeleaf/create/comment")
     public String createComment(
             String comment
