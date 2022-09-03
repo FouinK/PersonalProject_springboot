@@ -20,6 +20,4 @@ public class MainController {
         map.put("success", "응답 성공");
         return ResponseEntity.ok(map);
     }
-
-
 }

@@ -3,19 +3,23 @@ package com.example.PersonalProject.ThymeleafTest;
 import com.example.PersonalProject.Board.BoardService;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
+import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.HashMap;
 import java.util.Map;
 
-@org.springframework.stereotype.Controller
+@Controller
 @RequiredArgsConstructor
 public class ThymeleafBoardController {
 
@@ -58,17 +62,15 @@ public class ThymeleafBoardController {
 
     /**
      * 타임리프 코멘트 생성 매핑 함수
-     * @param comment
+     * @param
      * @return
      */
-    @GetMapping("/thymeleaf/create/comment")
-    public String createComment(
-            String comment
-            /*@AuthenticationPrincipal PrincipalDetails principalDetails*/) {
-        System.out.println("컨트롤러 코멘트 값"+comment);
-        Map<String, Object> map = new HashMap<>();
-        map.put("comment", comment);
-//        boardService.createComment(map, principalDetails);
+    @PostMapping(value = "/thymeleaf/create/comment")
+    public String createComment_thymeleaf(
+            @RequestBody Map<String, Object> map,
+            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        System.out.println(map);
+        boardService.createComment(map, principalDetails);
         return "redirect:/";
     }
 }

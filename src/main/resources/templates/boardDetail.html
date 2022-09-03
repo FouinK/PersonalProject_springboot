@@ -2,19 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>BoardDetail</title>
 </head>
-
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script>
-    const comment = " ";
-
-    function requestComment() {
-
-    }
-
-</script>
 <body>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script>
+        const map = {
+            team_id: null,
+            comment: null
+        }
+
+        function requestComment() {
+            map.comment = document.getElementById('comment').value;
+            map.team_id = document.getElementById('team_id').value;
+
+            console.log(map.comment);
+            console.log(map.team_id);
+
+            $.ajax({
+                contentType : "application/json",
+                url: "/thymeleaf/create/comment",
+                type: "POST",
+                dataType: JSON,
+                data: JSON.stringify(map),
+                xhrFields: {
+                    withCredentials: true
+                }
+            }).done(function (res) {
+                console.log(res);
+            });
+        }
+    </script>
+
     <h2 th:text="${board.title}"></h2>
     <strong>작성자 : </strong>
     <span th:text="${board.getWriter()}"></span>
@@ -28,14 +47,10 @@
     <strong>내용 : </strong>
     <span th:text="${board.getContent()}"></span>
 
-
-
-    <form action="/thymeleaf/create/comment" method="GET">
-        <input type="hidden"  th:value="${board.getBoard_id()}">
-        <input placeholder="댓글 작성" name="comment">
-        <input type="submit" value="입력">
-    </form>
-
+    <p></p>
+    <input id="team_id" type="hidden"  th:value="${board.getBoard_id()}">
+    <input placeholder="댓글 작성" id="comment">
+    <input type="button" value="입력" onclick="requestComment()">
 
 </body>
 </html>

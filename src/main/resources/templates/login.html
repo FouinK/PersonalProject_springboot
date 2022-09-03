@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Login</title>
 </head>
 <body>
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
@@ -20,7 +20,8 @@
         console.log(userInfo.password);
 
         $.ajax({
-            url: "/login",
+          contentType : "application/json",
+          url: "/login",
             type: "POST",
             dataType:JSON,
             data: JSON.stringify(userInfo),
