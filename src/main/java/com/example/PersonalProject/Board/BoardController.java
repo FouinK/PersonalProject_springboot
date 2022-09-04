@@ -1,6 +1,7 @@
 package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
+import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -66,18 +68,26 @@ public class BoardController {
 
     /**
      * 게시글 상세내용 응답 매핑 함수
-     * @param team_id
+     * @param board_id
      * @return
      */
     @GetMapping("/api/get_board")
     public ResponseEntity<?> getBoard(
-            @RequestParam("team_id") Long team_id) {
+            @RequestParam("board_id") Long board_id) {
 
-        OneBoardResponseDTO oneBoard = boardService.getOneBoard(team_id);
+        OneBoardResponseDTO oneBoard = boardService.getOneBoard(board_id);
+        List<CommentResponseDTO> commentResponseDTOList = boardService.getCommentList(board_id);
 
+        oneBoard.setCommentResponseDTOList(commentResponseDTOList);
         return ResponseEntity.ok(oneBoard);
     }
 
+    /**
+     * 댓글 생성 매핑 함수
+     * @param principalDetails
+     * @param map
+     * @return
+     */
     @GetMapping("/api/create/comment")
     public ResponseEntity<?> createComment(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
@@ -87,4 +97,6 @@ public class BoardController {
 
         return ResponseEntity.ok("코멘트 작성 완료");
     }
+
+
 }

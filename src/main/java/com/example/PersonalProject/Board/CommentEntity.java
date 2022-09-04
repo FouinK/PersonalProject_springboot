@@ -22,7 +22,7 @@ public class CommentEntity extends BaseTimeEntity{
     @Column(nullable = false)
     private String comment;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private BoardEntity boardEntity;
 
     @Builder

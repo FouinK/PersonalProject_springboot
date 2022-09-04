@@ -1,6 +1,7 @@
 package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
+import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
@@ -96,5 +97,20 @@ public class BoardServiceImpl implements BoardService{
         commentRepository.save(commentEntity);
     }
 
+    @Override
+    public List<CommentResponseDTO> getCommentList(Long board_id) {
+        List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
+        List<CommentEntity> commentEntityList = commentRepository.findByBoardEntity_Id(board_id);
+        for (int i = 0; i < commentEntityList.size(); i++) {
+            CommentResponseDTO individualCommentResponse = CommentResponseDTO.builder()
+                    .comment(commentEntityList.get(i).getComment())
+                    .writer(commentEntityList.get(i).getWriter())
+                    .createdDate(commentEntityList.get(i).getCreatedDate())
+                    .build();
+
+            commentResponseDTOList.add(individualCommentResponse);
+        }
+        return commentResponseDTOList;
+    }
 
 }
