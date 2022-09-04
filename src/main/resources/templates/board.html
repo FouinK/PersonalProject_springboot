@@ -22,7 +22,7 @@
     <tr th:each="board: ${boardList}">
             <td>
                 <form action="/thymeleaf/get_board" method="get">
-                    <input type="hidden" name="team_id" th:value="${board.board_id}"/>
+                    <input type="hidden" name="board_id" th:value="${board.board_id}"/>
                     <input type="submit" th:value="${board.board_id}"/>
                 </form>
             </td>

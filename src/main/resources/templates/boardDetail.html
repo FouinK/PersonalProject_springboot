@@ -47,6 +47,21 @@
     <strong>내용 : </strong>
     <span th:text="${board.getContent()}"></span>
 
+    <hr/>
+    <h3>댓글</h3>
+    <table>
+    <tr>
+        <th>작성자</th>
+        <th>내용</th>
+        <th>생성 남짜</th>
+    </tr>
+    <tr th:each="commentList : ${board.getCommentResponseDTOList()}">
+        <td th:text="${commentList.getWriter()}"></td>
+        <td th:text="${commentList.getComment()}"></td>
+        <td th:text="${commentList.getCreatedDate()}"></td>
+        </form>
+    </tr>
+    </table>
     <p></p>
     <input id="team_id" type="hidden"  th:value="${board.getBoard_id()}">
     <input placeholder="댓글 작성" id="comment">

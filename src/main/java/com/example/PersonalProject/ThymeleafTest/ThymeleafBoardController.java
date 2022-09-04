@@ -2,6 +2,7 @@ package com.example.PersonalProject.ThymeleafTest;
 
 import com.example.PersonalProject.Board.BoardService;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
+import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -45,16 +47,17 @@ public class ThymeleafBoardController {
     /**
      * 타임 리프 게시판 상세내용 화면
      * @param model
-     * @param team_id
+     * @param board_id
      * @return
      */
     @GetMapping("/thymeleaf/get_board")
     public String getBoard(
             Model model,
-            @RequestParam("team_id") Long team_id) {
+            @RequestParam("board_id") Long board_id) {
 
-        OneBoardResponseDTO oneBoard = boardService.getOneBoard(team_id);
-
+        OneBoardResponseDTO oneBoard = boardService.getOneBoard(board_id);
+        List<CommentResponseDTO> commentResponseDTOList = boardService.getCommentList(board_id);
+        oneBoard.setCommentResponseDTOList(commentResponseDTOList);
         model.addAttribute("board", oneBoard);
 
         return "boardDetail";

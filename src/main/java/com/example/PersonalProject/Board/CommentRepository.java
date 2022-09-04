@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 
-    List<CommentEntity> findByBoardEntity_Id(@Param("board_id") Long board_id);
+    @Query("select DISTINCT b from CommentEntity b join fetch b.boardEntity ")
+    List<CommentEntity> findByBoardEntity_Id(Long board_id);
 }

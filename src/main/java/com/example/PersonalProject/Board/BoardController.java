@@ -98,5 +98,4 @@ public class BoardController {
         return ResponseEntity.ok("코멘트 작성 완료");
     }
 
-
 }
