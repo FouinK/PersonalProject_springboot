@@ -1,7 +1,6 @@
 package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
-import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
@@ -14,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -98,4 +96,13 @@ public class BoardController {
         return ResponseEntity.ok("코멘트 작성 완료");
     }
 
+    @GetMapping("api/delete/comment")
+    public ResponseEntity<?> deleteComment(
+            @RequestParam("comment_id") Long comment_id) {
+
+        boardService.deleteComment(comment_id);
+
+
+        return ResponseEntity.ok("코멘트 삭제 완료");
+    }
 }

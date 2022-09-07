@@ -20,5 +20,5 @@ public interface BoardService {
 
     void createComment(Map<String, Object> map, PrincipalDetails principalDetails);
 
-//    List<CommentResponseDTO> getCommentList(Long board_id);
+    void deleteComment(Long comment_id);
 }

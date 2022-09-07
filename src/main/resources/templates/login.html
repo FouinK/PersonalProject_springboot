@@ -6,8 +6,7 @@
 </head>
 <body>
   <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-  <script>
-
+  <script type="text/javascript">
     const userInfo = {
       username: null,
       password: null
@@ -23,13 +22,18 @@
           contentType : "application/json",
           url: "/login",
             type: "POST",
-            dataType:JSON,
             data: JSON.stringify(userInfo),
         }).done(function (res) {
-            console.log(res);
-        });
+          window.sessionStorage.setItem("username", userInfo.username);
+          window.sessionStorage.setItem("nickname", res);
+          console.log(res);
+          console.log(res.data);
+          console.log(localStorage.getItem("nickname"));
+        })
+                .fail(function (res){
+                  console.log(res.statusText);
+                });
     }
-
   </script>
 
   <strong>아아디 : </strong>

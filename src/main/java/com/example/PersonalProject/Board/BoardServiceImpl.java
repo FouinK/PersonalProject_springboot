@@ -62,7 +62,7 @@ public class BoardServiceImpl implements BoardService{
 
 
     /**
-     * 게시판 상세내용 응답함수
+     * 게시판 상세내용 응답함수 (댓글 포함)
      * @param board_id
      * @return
      */
@@ -97,6 +97,11 @@ public class BoardServiceImpl implements BoardService{
         return oneBoardResponseDTO;
     }
 
+    /**
+     * 댓글 생성 함수
+     * @param map
+     * @param principalDetails
+     */
     @Override
     public void createComment(Map<String, Object> map, PrincipalDetails principalDetails) {
 
@@ -111,20 +116,8 @@ public class BoardServiceImpl implements BoardService{
         commentRepository.save(commentEntity);
     }
 
-//    @Override
-//    public List<CommentResponseDTO> getCommentList(Long board_id) {
-//        List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
-//        List<CommentEntity> commentEntityList = commentRepository.findByBoardEntity_Id(board_id);
-//        for (int i = 0; i < commentEntityList.size(); i++) {
-//            CommentResponseDTO individualCommentResponse = CommentResponseDTO.builder()
-//                    .comment(commentEntityList.get(i).getComment())
-//                    .writer(commentEntityList.get(i).getWriter())
-//                    .createdDate(commentEntityList.get(i).getCreatedDate())
-//                    .build();
-//
-//            commentResponseDTOList.add(individualCommentResponse);
-//        }
-//        return commentResponseDTOList;
-//    }
-
+    @Override
+    public void deleteComment(Long comment_id) {
+        commentRepository.deleteById(comment_id);
+    }
 }

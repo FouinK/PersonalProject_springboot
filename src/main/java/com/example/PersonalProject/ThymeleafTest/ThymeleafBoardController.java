@@ -2,7 +2,6 @@ package com.example.PersonalProject.ThymeleafTest;
 
 import com.example.PersonalProject.Board.BoardService;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
-import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -66,7 +65,7 @@ public class ThymeleafBoardController {
      * @param
      * @return
      */
-    @PostMapping(value = "/thymeleaf/create/comment")
+    @PostMapping("/thymeleaf/create/comment")
     public String createComment_thymeleaf(
             @RequestBody Map<String, Object> map,
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
@@ -74,4 +73,7 @@ public class ThymeleafBoardController {
         boardService.createComment(map, principalDetails);
         return "redirect:/";
     }
+
+//    @GetMapping("thymeleaf/delete/comment")
+
 }
