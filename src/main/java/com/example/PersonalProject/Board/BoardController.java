@@ -76,9 +76,9 @@ public class BoardController {
             @RequestParam("board_id") Long board_id) {
 
         OneBoardResponseDTO oneBoard = boardService.getOneBoard(board_id);
-        List<CommentResponseDTO> commentResponseDTOList = boardService.getCommentList(board_id);
-
-        oneBoard.setCommentResponseDTOList(commentResponseDTOList);
+//        List<CommentResponseDTO> commentResponseDTOList = boardService.getCommentList(board_id);
+//
+//        oneBoard.setCommentResponseDTOList(commentResponseDTOList);
         return ResponseEntity.ok(oneBoard);
     }
 

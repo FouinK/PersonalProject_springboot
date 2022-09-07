@@ -2,14 +2,15 @@ package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.User.UserInfoEntity;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @RequiredArgsConstructor
-@Data
+@Getter
 public class BoardEntity extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,8 +20,10 @@ public class BoardEntity extends BaseTimeEntity {
     private String title;
 
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private UserInfoEntity userInfoEntity;
+
+    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<CommentEntity> commentEntity;
 
     @Column(nullable = false)
     private String content;
@@ -29,10 +32,11 @@ public class BoardEntity extends BaseTimeEntity {
     private int viewCnt;
 
     @Builder
-    public BoardEntity(Long id, String title, UserInfoEntity userInfoEntity, String content, int viewCnt) {
+    public BoardEntity(Long id, String title, UserInfoEntity userInfoEntity, List<CommentEntity> commentEntity, String content, int viewCnt) {
         this.id = id;
         this.title = title;
         this.userInfoEntity = userInfoEntity;
+        this.commentEntity = commentEntity;
         this.content = content;
         this.viewCnt = viewCnt;
     }

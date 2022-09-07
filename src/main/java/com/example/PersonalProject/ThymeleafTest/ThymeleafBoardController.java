@@ -56,8 +56,6 @@ public class ThymeleafBoardController {
             @RequestParam("board_id") Long board_id) {
 
         OneBoardResponseDTO oneBoard = boardService.getOneBoard(board_id);
-        List<CommentResponseDTO> commentResponseDTOList = boardService.getCommentList(board_id);
-        oneBoard.setCommentResponseDTOList(commentResponseDTOList);
         model.addAttribute("board", oneBoard);
 
         return "boardDetail";

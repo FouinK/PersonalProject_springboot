@@ -53,7 +53,7 @@
     <tr>
         <th>작성자</th>
         <th>내용</th>
-        <th>생성 남짜</th>
+        <th>생성 날짜</th>
     </tr>
     <tr th:each="commentList : ${board.getCommentResponseDTOList()}">
         <td th:text="${commentList.getWriter()}"></td>

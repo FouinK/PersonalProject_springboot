@@ -13,6 +13,4 @@ public interface BoardRepository extends JpaRepository<BoardEntity, Long> {
 
     Optional<BoardEntity> findById(Long id);
 
-    @Query("select DISTINCT u from BoardEntity u join fetch u.userInfoEntity")
-    List<BoardEntity> findAl();
 }

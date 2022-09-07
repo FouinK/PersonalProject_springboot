@@ -1,14 +1,14 @@
 package com.example.PersonalProject.Board;
 
-import com.example.PersonalProject.User.UserInfoEntity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter
 @RequiredArgsConstructor
 public class CommentEntity extends BaseTimeEntity{
 
@@ -22,6 +22,7 @@ public class CommentEntity extends BaseTimeEntity{
     @Column(nullable = false)
     private String comment;
 
+    @JsonBackReference
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private BoardEntity boardEntity;
 

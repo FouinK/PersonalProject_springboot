@@ -63,13 +63,14 @@ public class BoardServiceImpl implements BoardService{
 
     /**
      * 게시판 상세내용 응답함수
-     * @param team_id
+     * @param board_id
      * @return
      */
     @Override
-    public OneBoardResponseDTO getOneBoard(Long team_id) {
+    public OneBoardResponseDTO getOneBoard(Long board_id) {
 
-        Optional<BoardEntity> boardEntity = boardRepository.findById(team_id);
+        Optional<BoardEntity> boardEntity = boardRepository.findById(board_id);
+        List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
 
         OneBoardResponseDTO oneBoardResponseDTO = OneBoardResponseDTO.builder()
                 .board_id(boardEntity.get().getId())
@@ -79,6 +80,19 @@ public class BoardServiceImpl implements BoardService{
                 .createdDate(boardEntity.get().getCreatedDate())
                 .viewCnt(boardEntity.get().getViewCnt())
                 .build();
+
+        for(int i=0;i<boardEntity.get().getCommentEntity().size();i++){
+
+            CommentResponseDTO individualCommentResponse = CommentResponseDTO.builder()
+                    .comment(boardEntity.get().getCommentEntity().get(i).getComment())
+                    .writer(boardEntity.get().getCommentEntity().get(i).getWriter())
+                    .createdDate(boardEntity.get().getCommentEntity().get(i).getCreatedDate())
+                    .build();
+
+            commentResponseDTOList.add(individualCommentResponse);
+        }
+
+        oneBoardResponseDTO.setCommentResponseDTOList(commentResponseDTOList);
 
         return oneBoardResponseDTO;
     }
@@ -97,20 +111,20 @@ public class BoardServiceImpl implements BoardService{
         commentRepository.save(commentEntity);
     }
 
-    @Override
-    public List<CommentResponseDTO> getCommentList(Long board_id) {
-        List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
-        List<CommentEntity> commentEntityList = commentRepository.findByBoardEntity_Id(board_id);
-        for (int i = 0; i < commentEntityList.size(); i++) {
-            CommentResponseDTO individualCommentResponse = CommentResponseDTO.builder()
-                    .comment(commentEntityList.get(i).getComment())
-                    .writer(commentEntityList.get(i).getWriter())
-                    .createdDate(commentEntityList.get(i).getCreatedDate())
-                    .build();
-
-            commentResponseDTOList.add(individualCommentResponse);
-        }
-        return commentResponseDTOList;
-    }
+//    @Override
+//    public List<CommentResponseDTO> getCommentList(Long board_id) {
+//        List<CommentResponseDTO> commentResponseDTOList = new ArrayList<>();
+//        List<CommentEntity> commentEntityList = commentRepository.findByBoardEntity_Id(board_id);
+//        for (int i = 0; i < commentEntityList.size(); i++) {
+//            CommentResponseDTO individualCommentResponse = CommentResponseDTO.builder()
+//                    .comment(commentEntityList.get(i).getComment())
+//                    .writer(commentEntityList.get(i).getWriter())
+//                    .createdDate(commentEntityList.get(i).getCreatedDate())
+//                    .build();
+//
+//            commentResponseDTOList.add(individualCommentResponse);
+//        }
+//        return commentResponseDTOList;
+//    }
 
 }
