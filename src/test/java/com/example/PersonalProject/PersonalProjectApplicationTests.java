@@ -41,5 +41,14 @@ class PersonalProjectApplicationTests {
 		}
 	}
 
+	@Test
+	void divide() {
+		int san = 1;
+		int il = 1234567;
+		int nameji = 0;
 
+		nameji = san % il;
+
+		System.out.println(nameji);
+	}
 }

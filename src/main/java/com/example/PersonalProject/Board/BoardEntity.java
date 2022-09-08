@@ -19,10 +19,10 @@ public class BoardEntity extends BaseTimeEntity {
     @Column(nullable = false)
     private String title;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private UserInfoEntity userInfoEntity;
 
-    @OneToMany(mappedBy = "boardEntity", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "boardEntity", fetch = FetchType.LAZY)
     private List<CommentEntity> commentEntity;
 
     @Column(nullable = false)

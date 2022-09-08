@@ -16,9 +16,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Map;
 
 @RequiredArgsConstructor
 public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -60,9 +57,6 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
         response.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
 //        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
-        Map<String, String> map = new HashMap<>();
-        map.put("nickname", principalDetails.getUserInfo().getNickname());
 
         response.getWriter().write(principalDetails.getUserInfo().getNickname());
         response.addCookie(cookie);

@@ -84,6 +84,7 @@ public class BoardServiceImpl implements BoardService{
         for(int i=0;i<boardEntity.get().getCommentEntity().size();i++){
 
             CommentResponseDTO individualCommentResponse = CommentResponseDTO.builder()
+                    .id(boardEntity.get().getCommentEntity().get(i).getId())
                     .comment(boardEntity.get().getCommentEntity().get(i).getComment())
                     .writer(boardEntity.get().getCommentEntity().get(i).getWriter())
                     .createdDate(boardEntity.get().getCommentEntity().get(i).getCreatedDate())

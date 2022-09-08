@@ -23,7 +23,7 @@ public class CommentEntity extends BaseTimeEntity{
     private String comment;
 
     @JsonBackReference
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     private BoardEntity boardEntity;
 
     @Builder

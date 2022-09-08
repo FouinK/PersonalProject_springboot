@@ -12,6 +12,7 @@
             comment: null
         }
 
+
         function requestComment() {
             map.comment = document.getElementById('comment').value;
             map.team_id = document.getElementById('team_id').value;
@@ -32,6 +33,23 @@
                 console.log(res);
             });
         }
+
+        function deleteComment(){
+            var comment_id = '?comment_id='+document.getElementById("comment_id").value;
+
+            console.log(document.getElementById("comment_id").value);
+            console.log('코멘트 아이디 출력'+comment_id);
+            $.ajax({
+                contentType: "application/json",
+                url: "/thymeleaf/delete/comment"+comment_id,
+                type: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            }).done(function (res){
+                console.log(res);
+            })
+        }
     </script>
 
     <h2 th:text="${board.title}"></h2>
@@ -51,11 +69,16 @@
     <h3>댓글</h3>
     <table>
     <tr>
+        <th>번호</th>
         <th>작성자</th>
         <th>내용</th>
         <th>생성 날짜</th>
     </tr>
     <tr th:each="commentList : ${board.getCommentResponseDTOList()}">
+        <td>
+            <input id="comment_id" type="hidden" th:value="${commentList.getId()}">
+            <input type="button" value="삭제" onclick="deleteComment()">
+        </td>
         <td th:text="${commentList.getWriter()}"></td>
         <td th:text="${commentList.getComment()}"></td>
         <td th:text="${commentList.getCreatedDate()}"></td>
