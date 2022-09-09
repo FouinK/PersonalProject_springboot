@@ -9,7 +9,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -42,13 +45,14 @@ class PersonalProjectApplicationTests {
 	}
 
 	@Test
-	void divide() {
-		int san = 1;
-		int il = 1234567;
-		int nameji = 0;
+	void updateCommentTest() {
+		Map<String, Object> map = new HashMap<>();
+		Long comment_id = 5L;
+		map.put("comment_id",comment_id);
+		map.put("comment", "너무나 재밌는 댓글");
 
-		nameji = san % il;
-
-		System.out.println(nameji);
+		Optional<CommentEntity> commentEntity = commentRepository.findById(comment_id);
+		commentEntity.get().setComment(String.valueOf(map.get("comment")));
+		commentRepository.save(commentEntity.get());
 	}
 }

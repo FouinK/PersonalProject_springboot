@@ -117,8 +117,23 @@ public class BoardServiceImpl implements BoardService{
         commentRepository.save(commentEntity);
     }
 
+    /**
+     * 댓글 삭제 함수
+     * @param comment_id
+     */
     @Override
     public void deleteComment(Long comment_id) {
         commentRepository.deleteById(comment_id);
+    }
+
+    /**
+     * 댓글 수정함수
+     * @param map
+     */
+    @Override
+    public void updateComment(Map<String, Object> map) {
+        Optional<CommentEntity> commentEntity = commentRepository.findById(Long.valueOf(String.valueOf(map.get("comment_id"))));
+        commentEntity.get().setComment(String.valueOf(map.get("comment")));
+        commentRepository.save(commentEntity.get());
     }
 }

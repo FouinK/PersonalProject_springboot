@@ -23,6 +23,7 @@ public class BoardController {
 
     /**
      * 게시판 작성 함수
+     *
      * @param principalDetails
      * @param createBoardRequestDTO
      * @return
@@ -37,12 +38,13 @@ public class BoardController {
 
     /**
      * 전체 게시판 응답 매핑 함수 (조회순 정렬)
+     *
      * @param pageable
      * @return
      */
     @GetMapping("/api/board")
     public ResponseEntity<?> getAllBoard(
-            @PageableDefault(size = 10,sort = "viewCnt",direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 10, sort = "viewCnt", direction = Sort.Direction.DESC) Pageable pageable) {
 
         Page<AllBoradResponseDTO> allBoradResponseDTOList = boardService.allBoard(pageable);
 
@@ -51,12 +53,13 @@ public class BoardController {
 
     /**
      * 전체 게시판 응답 매핑 함수 (최신순 정렬)
+     *
      * @param pageable
      * @return
      */
     @GetMapping("/api/board_created_date_range")
     public ResponseEntity<?> boardRangeViewCnt(
-            @PageableDefault(size = 10,sort = "createdDate",direction = Sort.Direction.DESC) Pageable pageable) {
+            @PageableDefault(size = 10, sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable) {
 
         Page<AllBoradResponseDTO> allBoradResponseDTOList = boardService.allBoard(pageable);
 
@@ -66,6 +69,7 @@ public class BoardController {
 
     /**
      * 게시글 상세내용 응답 매핑 함수
+     *
      * @param board_id
      * @return
      */
@@ -80,6 +84,7 @@ public class BoardController {
 
     /**
      * 댓글 생성 매핑 함수
+     *
      * @param principalDetails
      * @param map
      * @return
@@ -94,13 +99,31 @@ public class BoardController {
         return ResponseEntity.ok("코멘트 작성 완료");
     }
 
+    /**
+     * 댓글 삭제 매핑 함수
+     *
+     * @param comment_id
+     * @return
+     */
     @GetMapping("api/delete/comment")
     public ResponseEntity<?> deleteComment(
-            @RequestParam("comment_id") Long comment_id) {
+            @RequestParam(value = "comment_id", required = false) Long comment_id) {
 
+        System.out.println(comment_id);
         boardService.deleteComment(comment_id);
 
 
         return ResponseEntity.ok("코멘트 삭제 완료");
+    }
+
+    /**
+     * 댓글 수정 매핑함수
+     *
+     * @return
+     */
+    @PostMapping("/api/update/comment")
+    public ResponseEntity<?> updateComment(@RequestBody Map<String, Object> map) {
+        boardService.updateComment(map);
+        return ResponseEntity.ok("댓글 수정 완료");
     }
 }
