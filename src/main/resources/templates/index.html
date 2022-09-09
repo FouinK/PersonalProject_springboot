@@ -7,10 +7,7 @@
 <body>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script type="text/javascript">
-        const greeting = document.querySelector('.js-greetings');
-        if(sessionStorage.getItem("nickname") !== null){
-            greeting.innerHTML = "Hello !"+sessionStorage.getItem("nickname");
-        }
+
         const userInfo = {
             username: null,
             password: null
@@ -42,9 +39,7 @@
     </script>
 
     <center><h1>Welcome to my Personal_Project</h1></center>
-    <h4 class="js-greetings greetings"></h4>
 
-    <script src="greeting.js"></script>
     <p><a href="/thymeleaf/board"> 게시판 가기 </a></p>
     <hr/>
     <p><a href="/thymeleaf/login"> 로그인 화면 가기</a></p>

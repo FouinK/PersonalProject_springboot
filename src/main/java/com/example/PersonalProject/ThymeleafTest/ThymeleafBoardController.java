@@ -69,12 +69,12 @@ public class ThymeleafBoardController {
      * @return
      */
     @PostMapping("/thymeleaf/create/comment")
-    public String createComment_thymeleaf(
+    public ResponseEntity<?> createComment_thymeleaf(
             @RequestBody Map<String, Object> map,
             @AuthenticationPrincipal PrincipalDetails principalDetails) {
         System.out.println(map);
         boardService.createComment(map, principalDetails);
-        return "redirect:/";
+        return ResponseEntity.ok("생성 완료");
     }
 
 
