@@ -1,4 +1,4 @@
-package com.example.PersonalProject.ThymeleafTest;
+package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.Board.BoardService;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
