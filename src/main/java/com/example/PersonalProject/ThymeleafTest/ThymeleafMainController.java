@@ -30,6 +30,6 @@ public class ThymeleafMainController {
     @GetMapping("/thymeleaf/login")
     public String login() {
 
-        return "login";
+        return "User/login";
     }
 }

@@ -15,6 +15,11 @@
             map.comment = document.getElementById('comment').value;
             map.team_id = document.getElementById('team_id').value;
 
+            if (sessionStorage.getItem("username") === null) {
+                alert("로그인 후 작성 해주시기 바랍니다 !");
+                window.location.replace("/thymeleaf/login");
+            }
+
             $.ajax({
                 contentType : "application/json",
                 url: "/thymeleaf/create/comment",

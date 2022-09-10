@@ -40,9 +40,14 @@ public class ThymeleafBoardController {
 
         Page<AllBoradResponseDTO> boardList = boardService.allBoard(pageable);
         model.addAttribute("boardList", boardList);
-        return "board";
+        return "Board/board";
     }
 
+    @GetMapping("/thymeleaf/create/board")
+    public String createBoard() {
+
+        return "Board/createBoard";
+    }
 
     /**
      * 타임 리프 게시판 상세내용 화면
@@ -59,7 +64,7 @@ public class ThymeleafBoardController {
         OneBoardResponseDTO oneBoard = boardService.getOneBoard(board_id);
         model.addAttribute("board", oneBoard);
 
-        return "boardDetail";
+        return "Board/boardDetail";
     }
 
     /**
