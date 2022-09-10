@@ -27,6 +27,10 @@ public class BoardServiceImpl implements BoardService{
     @Override
     public void createBoard(CreateBoardRequestDTO createBoardRequestDTO, PrincipalDetails principalDetails) {
 
+        System.out.println(createBoardRequestDTO.toString());
+        if (!createBoardRequestDTO.getWriter().equals(principalDetails.getUserInfo().getNickname())) {
+            System.out.println("아이디 불일치 예외처리");
+        }
         BoardEntity boardEntity = BoardEntity.builder()
                 .title(createBoardRequestDTO.getTitle())
                 .content(createBoardRequestDTO.getContent())

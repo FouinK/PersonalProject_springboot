@@ -2,6 +2,7 @@ package com.example.PersonalProject.ThymeleafTest;
 
 import com.example.PersonalProject.Board.BoardService;
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
+import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
 import lombok.RequiredArgsConstructor;
@@ -43,10 +44,27 @@ public class ThymeleafBoardController {
         return "Board/board";
     }
 
-    @GetMapping("/thymeleaf/create/board")
-    public String createBoard() {
+    /**
+     * 게시글 작성화면으로 이동 하는 매핑 함수
+     * @return
+     */
+    @GetMapping("/thymeleaf/create/boardPage")
+    public String createBoardPage() {
+        return "/Board/createBoardPage";
+    }
 
-        return "Board/createBoard";
+    /**
+     * 게시글 작성 함수
+     * @param createBoardRequestDTO
+     * @param principalDetails
+     * @return
+     */
+    @PostMapping("/thymeleaf/create/board")
+    public ResponseEntity<?> createBoard(
+            @RequestBody CreateBoardRequestDTO createBoardRequestDTO,
+            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        boardService.createBoard(createBoardRequestDTO, principalDetails);
+        return ResponseEntity.ok("게시글 작성 완료");
     }
 
     /**

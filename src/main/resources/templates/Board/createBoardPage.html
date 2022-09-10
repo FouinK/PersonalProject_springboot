@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 생성</title>
+</head>
+<body>
+  <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script>
+    const CreateBoardRequestDTO = {
+      title : null,
+      content : null,
+      writer : null
+    }
+
+    function requestCreateBoard() {
+
+        if (sessionStorage.getItem("username") === null) {
+            alert("로그인 후 작성 가능합니다 !");
+            window.location.replace("/thymeleaf/login")
+        }
+      CreateBoardRequestDTO.title = document.getElementById('title').value;
+      CreateBoardRequestDTO.content = document.getElementById('content').value;
+      CreateBoardRequestDTO.writer = sessionStorage.getItem("nickname");
+      console.log(CreateBoardRequestDTO);
+      $.ajax({
+          contentType : "application/json",
+          url: "/thymeleaf/create/board",
+          type: "POST",
+          dataType: "text",
+          data: JSON.stringify(CreateBoardRequestDTO),
+          xhrFields: {
+            withCredentials: true
+          }
+      }).done(function (res) {
+          console.log(res);
+          window.location.replace("/thymeleaf/board");
+
+      }).fail(function (res){
+          console.log(res);
+      });
+
+    }
+  </script>
+  <center><h2>게시글 작성하기</h2></center>
+  <strong>제목 : </strong>
+  <span><input id="title"></span>
+  <br/>
+  <strong>내용 : </strong>
+  <span><textarea id="content"></textarea></span>
+  <p><input type="button" value="작성 완료" onclick="requestCreateBoard()"></p>
+
+</body>
+</html>
