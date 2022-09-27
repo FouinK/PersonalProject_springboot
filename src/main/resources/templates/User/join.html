@@ -22,13 +22,18 @@
 
       $.ajax({
         contentType : "application/json",
-        url: "/thymeleaf/join",
+        url: "/api/join",
         type: "POST",
         dataType : "text",
         data: JSON.stringify(userInfo),
       }).done(function (res) {
         console.log(res);
-        window.location.replace("/thymeleaf/login");
+        if (res === "회원가입 완료") {
+          alert(res);
+          window.location.replace("/thymeleaf/login");
+        }else {
+          alert("아이디 중복 !");
+        }
       })
               .fail(function (res){
                 console.log(res);

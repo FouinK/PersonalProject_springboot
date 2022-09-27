@@ -25,8 +25,12 @@ public class UserController {
      */
     @PostMapping("/api/join")
     public ResponseEntity<?> join(@RequestBody Map<String, String> getUser) {
-        userService.join(getUser);
-        return ResponseEntity.ok("회원가입 완료");
+        boolean duplication = userService.join(getUser);
+        if (duplication == true) {
+            return ResponseEntity.ok("회원가입 실패");
+        } else {
+            return ResponseEntity.ok("회원가입 완료");
+        }
     }
 
     /**

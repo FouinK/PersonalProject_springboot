@@ -18,13 +18,22 @@ public class UserServiceImpl implements UserService {
      * @param getUser 컨트롤러에서 받은 회원가입 양식
      */
     @Override
-    public void join(Map<String, String> getUser) {
-        UserInfoEntity userInfo = new UserInfoEntity();
-        userInfo.setUsername(getUser.get("username"));
-        userInfo.setPassword(passwordEncoder.encode(getUser.get("password")));
-        userInfo.setNickname(getUser.get("nickname"));
-        userInfo.setRole(Role.USER);
+    public boolean join(Map<String, String> getUser) {
 
-        userRepository.save(userInfo);
+        boolean duplication = userRepository.existsByUsername(getUser.get("username"));
+
+        if (duplication == true) {
+
+            return true;
+        } else {
+
+            UserInfoEntity userInfo = new UserInfoEntity();
+            userInfo.setUsername(getUser.get("username"));
+            userInfo.setPassword(passwordEncoder.encode(getUser.get("password")));
+            userInfo.setNickname(getUser.get("nickname"));
+            userInfo.setRole(Role.USER);
+            userRepository.save(userInfo);
+            return false;
+        }
     }
 }

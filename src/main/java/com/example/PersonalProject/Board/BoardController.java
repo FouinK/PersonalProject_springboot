@@ -1,6 +1,7 @@
 package com.example.PersonalProject.Board;
 
 import com.example.PersonalProject.DTO.AllBoradResponseDTO;
+import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
