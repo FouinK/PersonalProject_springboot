@@ -11,6 +11,15 @@
             team_id: null,
             comment: null
         }
+
+        const commentMap = {
+            comment_id : null,
+            comment: null
+        }
+
+        /**
+         * 댓글 생성 함수
+         */
         function requestComment() {
             map.comment = document.getElementById('comment').value;
             map.team_id = document.getElementById('team_id').value;
@@ -38,6 +47,9 @@
             });
         }
 
+        /**
+         * 댓글 수정 함수
+         */
         function deleteComment(){
             var comment_id = '?comment_id='+document.getElementById("comment_id").value;
 
@@ -46,6 +58,39 @@
                 url: "/thymeleaf/delete/comment"+comment_id,
                 dataType: "text",
                 type: "GET",
+                xhrFields: {
+                    withCredentials: true
+                }
+            }).done(function (res){
+                console.log(res);
+                window.location.reload();
+
+            }).fail(function (res){
+                console.log(res)
+            });
+        }
+
+        /**
+         * 댓글 수정 인풋 함수 생성
+         */
+        function updateCommentInput(comment_id) {
+            commentMap.comment_id = comment_id;
+            const inHtml_updateInput = document.getElementById("updateCommentInput");
+            inHtml_updateInput.innerHTML = `<input id="updateComment" placeholder="수정할 내용 작성">
+                                            <input type="button" value="입력" onclick="updateComment()">`;
+        }
+
+        /**
+         * 댓글 수정 함수
+         */
+        function updateComment() {
+            commentMap.comment = document.getElementById("updateComment").value;
+            $.ajax({
+                contentType: "application/json",
+                url: "/api/update/comment",
+                dataType: "text",
+                type: "POST",
+                data: JSON.stringify(commentMap),
                 xhrFields: {
                     withCredentials: true
                 }
@@ -85,6 +130,7 @@
         <td>
             <input id="comment_id" type="hidden" th:value="${commentList.getId()}">
             <input type="button" value="삭제" onclick="deleteComment()">
+            <input type="button" value="수정하기" onclick="updateCommentInput(document.getElementById('comment_id').value)">
         </td>
         <td th:text="${commentList.getWriter()}"></td>
         <td th:text="${commentList.getComment()}"></td>
@@ -93,6 +139,7 @@
     </tr>
     </table>
     <p></p>
+    <div id="updateCommentInput"></div>
     <input id="team_id" type="hidden"  th:value="${board.getBoard_id()}">
     <input placeholder="댓글 작성" id="comment">
     <input type="button" value="입력" onclick="requestComment()">

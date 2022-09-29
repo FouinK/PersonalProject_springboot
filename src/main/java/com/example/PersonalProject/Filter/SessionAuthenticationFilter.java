@@ -55,8 +55,6 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
 
         Cookie cookie = sessionManager.createSession(String.valueOf(principalDetails.getUserInfo().getId()));
         response.addHeader("Access-Control-Allow-Origin","http://localhost:3000");
-//        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
 
         response.getWriter().write(principalDetails.getUserInfo().getNickname());
         response.addCookie(cookie);

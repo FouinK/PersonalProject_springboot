@@ -123,7 +123,10 @@ public class BoardController {
      * @return
      */
     @PostMapping("/api/update/comment")
-    public ResponseEntity<?> updateComment(@RequestBody Map<String, Object> map) {
+    public ResponseEntity<?> updateComment(
+            @AuthenticationPrincipal PrincipalDetails principalDetails,
+            @RequestBody Map<String, Object> map) {
+
         boardService.updateComment(map);
         return ResponseEntity.ok("댓글 수정 완료");
     }
