@@ -1,6 +1,7 @@
 package com.example.PersonalProject.IndexController;
 
 import com.example.PersonalProject.Login.PrincipalDetails;
+import com.example.PersonalProject.exception.MyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,16 @@ public class MainController {
 
     /**
      * 타임리프 메인 화면
+     *
      * @param principalDetails
      * @return
      */
     @GetMapping("/")
     public String index(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+//        throw new MyException("메인 페이지에서 예외처리 해보기");
         if (principalDetails != null) {
-            System.out.println("메인 페이지 유저네임 확인 : "+principalDetails.getUserInfo().getUsername());
-        }else {
+            System.out.println("메인 페이지 유저네임 확인 : " + principalDetails.getUserInfo().getUsername());
+        } else {
             System.out.println("유저정보 없음");
         }
         return "index";

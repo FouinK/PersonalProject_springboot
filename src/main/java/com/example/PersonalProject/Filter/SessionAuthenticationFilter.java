@@ -2,6 +2,7 @@ package com.example.PersonalProject.Filter;
 
 import com.example.PersonalProject.Login.PrincipalDetails;
 import com.example.PersonalProject.Login.SessionManager;
+import com.example.PersonalProject.exception.MyException;
 import com.example.PersonalProject.User.UserInfoEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -35,17 +36,15 @@ public class SessionAuthenticationFilter extends UsernamePasswordAuthenticationF
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         try {
-            authenticationManager.authenticate(authenticationToken);
-            Authentication authentication = authenticationManager.authenticate(authenticationToken);
-            return authentication;
-        } catch (NullPointerException e) {
+            return authenticationManager.authenticate(authenticationToken);
+        } catch (Exception e) {
             try {
-                response.sendError(401);
+                response.sendError(401, "로그인에러");
             } catch (IOException ex) {
-                ex.printStackTrace();
+                throw new RuntimeException(ex);
             }
-            return null;
         }
+        return null;
     }
 
     @Override
