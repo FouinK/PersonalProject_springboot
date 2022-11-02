@@ -48,11 +48,10 @@
         }
 
         /**
-         * 댓글 수정 함수
+         * 댓글 삭제 함수
          */
         function deleteComment(){
             var comment_id = '?comment_id='+document.getElementById("comment_id").value;
-
             $.ajax({
                 contentType: "application/json",
                 url: "/thymeleaf/delete/comment"+comment_id,
@@ -83,8 +82,11 @@
         /**
          * 댓글 수정 함수
          */
-        function updateComment() {
+        function updateComment(comment_id) {
             commentMap.comment = document.getElementById("updateComment").value;
+            // commentMap.comment_id = comment_id;
+            // console.log("수정할 댓글 아이디 : "+commentMap);
+
             $.ajax({
                 contentType: "application/json",
                 url: "/api/update/comment",
@@ -94,11 +96,11 @@
                 xhrFields: {
                     withCredentials: true
                 }
-            }).done(function (res){
+            }).done(function (res) {
                 console.log(res);
                 window.location.reload();
 
-            }).fail(function (res){
+            }).fail(function (res) {
                 console.log(res)
             });
         }

@@ -116,13 +116,16 @@ public class ThymeleafBoardController {
 
     /**
      * 댓글 수정 매핑 함수
+     *
      * @param map
      * @return
      */
     @PostMapping("thymeleaf/update/comment")
     public ResponseEntity<?> updateComment(
-            @RequestBody Map<String, Object> map) {
-        boardService.updateComment(map);
+            @RequestBody Map<String, Object> map,
+            @AuthenticationPrincipal PrincipalDetails principalDetails) {
+
+        boardService.updateComment(map, principalDetails);
         return ResponseEntity.ok("업데이트 완료");
     }
 }

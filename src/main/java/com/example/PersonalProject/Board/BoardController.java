@@ -5,6 +5,7 @@ import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
+import com.example.PersonalProject.exception.MyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -126,8 +127,10 @@ public class BoardController {
     public ResponseEntity<?> updateComment(
             @AuthenticationPrincipal PrincipalDetails principalDetails,
             @RequestBody Map<String, Object> map) {
-
-        boardService.updateComment(map);
+        if (principalDetails == null) {
+            throw new MyException("로그인 상태가 아닙니다");
+        }
+        boardService.updateComment(map, principalDetails);
         return ResponseEntity.ok("댓글 수정 완료");
     }
 }

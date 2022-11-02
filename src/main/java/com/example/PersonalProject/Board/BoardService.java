@@ -20,5 +20,6 @@ public interface BoardService {
 
     void deleteComment(Long comment_id);
 
-    void updateComment(Map<String, Object> map);
+    void updateComment(Map<String, Object> map, PrincipalDetails principalDetails);
+
 }

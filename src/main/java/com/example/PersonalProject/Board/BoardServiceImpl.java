@@ -5,6 +5,7 @@ import com.example.PersonalProject.DTO.CommentResponseDTO;
 import com.example.PersonalProject.DTO.CreateBoardRequestDTO;
 import com.example.PersonalProject.DTO.OneBoardResponseDTO;
 import com.example.PersonalProject.Login.PrincipalDetails;
+import com.example.PersonalProject.exception.MyException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -132,11 +133,19 @@ public class BoardServiceImpl implements BoardService{
 
     /**
      * 댓글 수정함수
+     *
      * @param map
      */
     @Override
-    public void updateComment(Map<String, Object> map) {
+    public void updateComment(Map<String, Object> map, PrincipalDetails principalDetails) {
         Optional<CommentEntity> commentEntity = commentRepository.findById(Long.valueOf(String.valueOf(map.get("comment_id"))));
+        System.out.println("댓글 작성한 사람 닉네임 : "+commentEntity.get().getWriter());
+        System.out.println("현재 로그인 회원 닉네임 : "+principalDetails.getUserInfo().getNickname());
+
+        if (!commentEntity.get().getWriter().equals(principalDetails.getUserInfo().getNickname())) {
+            throw new MyException("본인이 작성한 댓글이 아닙니다 .");
+        }
+
         commentEntity.get().setComment(String.valueOf(map.get("comment")));
         commentRepository.save(commentEntity.get());
     }
