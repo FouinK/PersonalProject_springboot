@@ -1,13 +1,10 @@
 package com.example.PersonalProject.User;
 
-import com.example.PersonalProject.Board.BoardEntity;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 @Entity
 @Data

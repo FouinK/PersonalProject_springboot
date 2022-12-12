@@ -1,7 +1,6 @@
 package com.example.PersonalProject.IndexController;
 
 import com.example.PersonalProject.Login.PrincipalDetails;
-import com.example.PersonalProject.exception.MyException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -39,5 +38,14 @@ public class MainController {
         Map<String, Object> map = new HashMap<>();
         map.put("success", "응답 성공");
         return ResponseEntity.ok(map);
+    }
+
+    @GetMapping("/api/arrayRequest/test")
+    public ResponseEntity<?> api_arrayRequest_test(@RequestParam(name = "name") String[] name) {
+        for (String s : name) {
+            System.out.println("받은 값 : " + s);
+
+        }
+        return ResponseEntity.ok(name);
     }
 }
