@@ -14,9 +14,9 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class LogoutHandler implements LogoutSuccessHandler {
 
+    private final SessionManager sessionManager;
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        SessionManager sessionManager = new SessionManager();
         sessionManager.expire(request);
         System.out.println("로그아웃 석세스 헨들러 실행");
 

@@ -30,6 +30,10 @@ dependencies {
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'com.auth0:java-jwt:4.0.0'
 	implementation 'javax.xml.bind:jaxb-api:2.3.0'
+
+	// NoSQL (redis) DB
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
 	runtimeOnly 'mysql:mysql-connector-java'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

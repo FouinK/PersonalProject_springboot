@@ -16,7 +16,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
-
+    private final SessionManager sessionManager;
+    private final SessionRepository sessionRepository;
     /**
      * 회원가입 매핑 함수
      *
@@ -35,6 +36,7 @@ public class UserController {
 
     /**
      * 회원 정보를 조회할 수 있는 매핑 함수
+     *
      * @param principalDetails
      * @return
      */
@@ -52,6 +54,7 @@ public class UserController {
 
     /**
      * 쿠키 요청 응답 테스트
+     *
      * @param httpServletRequest
      * @param mySessionId
      * @return
@@ -62,7 +65,6 @@ public class UserController {
             HttpServletRequest httpServletRequest,
             @CookieValue(name = "mySessionId", required = false) String mySessionId) {
         System.out.println("controller 쿠키 값 확인 : " + mySessionId);
-        SessionManager sessionManager = new SessionManager();
 
 
         String cookie = (String) sessionManager.getSession(httpServletRequest);
@@ -72,6 +74,7 @@ public class UserController {
 
     /**
      * 세션 만료 테스트 매핑 함수
+     *
      * @param principalDetails
      * @return
      */
@@ -80,4 +83,10 @@ public class UserController {
         System.out.println(principalDetails.toString());
         return ResponseEntity.ok("작동 되면 안되는 구문");
     }
+
+    @GetMapping("/getCache")
+    public Object getCache() {
+        return sessionRepository.findById("34fa4ec8-adc4-4dcb-90fe-2cd2f5594175");
+    }
+
 }
