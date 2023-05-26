@@ -1,17 +1,27 @@
 package com.example.PersonalProject.IndexController;
 
+import com.example.PersonalProject.DTO.CreateMemberDto;
 import com.example.PersonalProject.Login.PrincipalDetails;
+import com.example.PersonalProject.model.Member;
+import com.example.PersonalProject.repository.MemberRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequiredArgsConstructor
 public class MainController {
+
+    private final MemberRepository memberRepository;
+
 
     /**
      * 타임리프 메인 화면
@@ -48,4 +58,18 @@ public class MainController {
         }
         return ResponseEntity.ok(name);
     }
+
+    @PostMapping("/member")
+    public ResponseEntity<?> createMember(
+            @RequestBody CreateMemberDto createMemberDto) {
+        memberRepository.save(Member.builder()
+                .memberId("123123")
+                .username(createMemberDto.getUsername())
+                .password(createMemberDto.getPassword())
+                .build());
+        return ResponseEntity.ok("");
+    }
+
+
+
 }
