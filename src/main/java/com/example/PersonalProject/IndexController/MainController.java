@@ -1,26 +1,27 @@
 package com.example.PersonalProject.IndexController;
 
 import com.example.PersonalProject.DTO.CreateMemberDto;
+import com.example.PersonalProject.DTO.ResponseMemberDtd;
 import com.example.PersonalProject.Login.PrincipalDetails;
+import com.example.PersonalProject.User.MemberService;
 import com.example.PersonalProject.model.Member;
 import com.example.PersonalProject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
 
     private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
 
     /**
@@ -70,6 +71,12 @@ public class MainController {
         return ResponseEntity.ok("");
     }
 
-
+    @GetMapping("/member/{memberId}")
+    public ResponseEntity<?> getMember(
+            @PathVariable(name = "memberId") String memberId) {
+        return ResponseEntity.ok(
+                memberService.getMember(memberId)
+        );
+    }
 
 }

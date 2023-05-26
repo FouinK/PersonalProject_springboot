@@ -1,7 +1,6 @@
 package com.example.PersonalProject.model;
 
 import lombok.*;
-import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
 
